@@ -1,3 +1,4 @@
 .idea
 my-app/target
 .iml
+.DS_Store
