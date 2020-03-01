@@ -8,8 +8,12 @@ import org.seasar.doma.Id;
 @Entity
 public class Event {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
 
   String name;
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }

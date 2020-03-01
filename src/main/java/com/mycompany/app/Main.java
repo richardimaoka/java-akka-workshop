@@ -12,7 +12,11 @@ import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.mycompany.AppConfig;
+import com.mycompany.dao.EventDao;
+import com.mycompany.dao.EventDaoImpl;
+import com.mycompany.entities.Event;
 import org.seasar.doma.jdbc.Config;
+import org.seasar.doma.jdbc.tx.TransactionManager;
 
 import java.util.concurrent.CompletionStage;
 
@@ -23,6 +27,14 @@ public class Main extends AllDirectives {
     ActorSystem system = ActorSystem.create("routes");
 
     Config config = AppConfig.singleton();
+    EventDao dao = new EventDaoImpl();
+    TransactionManager tm = config.getTransactionManager();
+
+    tm.required(() -> {
+      Event event = new Event();
+      event.setName("new name 1");
+      dao.insert(event);
+    });
 
     final Http http = Http.get(system);
     final ActorMaterializer materializer = ActorMaterializer.create(system);
