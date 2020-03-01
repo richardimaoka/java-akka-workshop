@@ -9,7 +9,7 @@ import org.seasar.doma.jdbc.tx.TransactionManager;
 
 import javax.sql.DataSource;
 
-public class AppConfig extends Config {
+public class AppConfig implements Config {
   private static final AppConfig CONFIG = new AppConfig();
 
   private final Dialect dialect;
