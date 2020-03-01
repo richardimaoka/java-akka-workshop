@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import org.seasar.doma.SingletonConfig;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.MysqlDialect;
@@ -9,6 +10,7 @@ import org.seasar.doma.jdbc.tx.TransactionManager;
 
 import javax.sql.DataSource;
 
+@SingletonConfig
 public class AppConfig implements Config {
   private static final AppConfig CONFIG = new AppConfig();
 
