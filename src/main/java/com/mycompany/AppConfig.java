@@ -23,7 +23,7 @@ public class AppConfig implements Config {
   private AppConfig() {
     dialect = new MysqlDialect();
     dataSource = new LocalTransactionDataSource(
-      "jdbc:mysql://127.0.0.1.3306", "root", null);
+      "jdbc:mysql://127.0.0.1:3306", "root", null);
     transactionManager = new LocalTransactionManager(
       dataSource.getLocalTransaction(getJdbcLogger()));
   }
