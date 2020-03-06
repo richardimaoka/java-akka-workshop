@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.seasar.doma.SingletonConfig;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.dialect.Dialect;
@@ -21,11 +22,18 @@ public class AppConfig implements Config {
   private final TransactionManager transactionManager;
 
   private AppConfig() {
-    dialect = new MysqlDialect();
-    dataSource = new LocalTransactionDataSource(
-      "jdbc:mysql://127.0.0.1:3306", "root", null);
-    transactionManager = new LocalTransactionManager(
-      dataSource.getLocalTransaction(getJdbcLogger()));
+    Dotenv dotenv = Dotenv.load();
+    String url = dotenv.get("DATABASE.URL");
+    String user =  dotenv.get("DATABASE.USER");
+    String password = dotenv.get("DATABASE.PASSWORD");
+
+    if (url == null || user == null || password == null)
+      throw new RuntimeException("Missing Environment variables: one or more of 'DATABASE.URL', 'DATABASE.USER', 'DATABASE.PASSWORD' is not found.");
+    else {
+      dialect = new MysqlDialect();
+      dataSource = new LocalTransactionDataSource(url, user, password);
+      transactionManager = new LocalTransactionManager(dataSource.getLocalTransaction(getJdbcLogger()));
+    }
   }
 
   @Override
