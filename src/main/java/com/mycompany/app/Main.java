@@ -30,19 +30,13 @@ public class Main {
 
     Config config = AppConfig.singleton();
     EventDao dao = new EventDaoImpl();
-    TransactionManager tm = config.getTransactionManager();
-
-    tm.required(() -> {
-      Event event = new Event();
-      event.setName("new name 1");
-      dao.insert(event);
-    });
 
     final Http http = Http.get(system);
     final ActorMaterializer materializer = ActorMaterializer.create(system);
 
     //In order to access all directives we need an instance where the routes are define.
-    AllRoute route = new AllRoute();
+    TransactionManager tm = config.getTransactionManager();
+    AllRoute route = new AllRoute(tm);
 
     final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = route.route().flow(system, materializer);
     final CompletionStage<ServerBinding> binding = http.bindAndHandle(routeFlow,
