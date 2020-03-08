@@ -9,9 +9,24 @@ public class Order {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
 
-  String name;
+  @Column(name = "ticket_id")
+  Integer ticketId;
 
-  public void setName(String name) {
-    this.name = name;
+  @Column(name = "user_id")
+  Integer userId;
+
+  @Column(name = "quantity")
+  Integer quantity;
+
+  public void setTicketId(int ticketId) {
+    this.ticketId = ticketId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 }
