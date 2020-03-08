@@ -2,6 +2,16 @@ INSERT INTO events (name) VALUES ("EXILE Tour 2020");
 INSERT INTO events (name) VALUES ("ゆず　ツアー 2020");
 INSERT INTO events (name) VALUES ("横浜ＤｅＮＡベイスターズ（公式戦）  ＤｅＮＡ　ＶＳ　広島 3/31(火)");
 
+INSERT INTO users (name) VALUES ("Richard Imaoka");
+INSERT INTO users (name) VALUES ("Richard Yamaoka");
+INSERT INTO users (name) VALUES ("Richard Yurioka");
+INSERT INTO users (name) VALUES ("Yurioka Super Express");
+INSERT INTO users (name) VALUES ("Ijirie Okada");
+INSERT INTO users (name) VALUES ("Toshio Okada");
+INSERT INTO users (name) VALUES ("Toshio Okada 90kg");
+INSERT INTO users (name) VALUES ("Toshio Okada 100kg");
+INSERT INTO users (name) VALUES ("Toshio Okada 60kg");
+INSERT INTO users (name) VALUES ("Toshio Okada Rebounded 130kg");
 
 INSERT INTO tickets (event_id, name, price, quantity, start_at, opening_at) VALUES (1, "2020/6/20(土)", 12800, 10, "2020-03-28 18:00:00", "2020-03-28 17:00:00");
 INSERT INTO tickets (event_id, name, price, quantity, start_at, opening_at) VALUES (1, "2020/6/27(土)", 12800, 10, "2020-03-28 18:00:00", "2020-03-28 17:00:00");
