@@ -1,10 +1,10 @@
-package com.mycompany.entities;
+package com.mycompany.entity;
 
 import org.seasar.doma.*;
 
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "tickets")
+public class Ticket {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;

@@ -1,7 +1,6 @@
 package com.mycompany.route;
 
 import akka.http.javadsl.server.*;
-import com.mycompany.entities.*;
 import org.seasar.doma.jdbc.tx.*;
 
 public class OrderRoute extends AllDirectives {

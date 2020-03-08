@@ -1,7 +1,7 @@
 package com.mycompany.dao;
 
 import com.mycompany.AppConfig;
-import com.mycompany.entities.Event;
+import com.mycompany.entity.Event;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 

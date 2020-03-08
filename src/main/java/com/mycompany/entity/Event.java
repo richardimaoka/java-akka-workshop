@@ -1,4 +1,4 @@
-package com.mycompany.entities;
+package com.mycompany.entity;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;

@@ -7,19 +7,16 @@ import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
-import akka.http.javadsl.server.*;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.mycompany.AppConfig;
 import com.mycompany.dao.EventDao;
 import com.mycompany.dao.EventDaoImpl;
-import com.mycompany.entities.Event;
 import com.mycompany.route.*;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.tx.TransactionManager;
 import static akka.http.javadsl.server.PathMatchers.segment;
-import static akka.http.javadsl.server.PathMatchers.integerSegment;
-import static akka.http.javadsl.server.Directives.pathEndOrSingleSlash;
+
 import java.util.concurrent.CompletionStage;
 
 public class Main {
