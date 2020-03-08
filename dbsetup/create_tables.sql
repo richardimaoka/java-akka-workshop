@@ -31,7 +31,7 @@ CREATE TABLE orders (
   `ticket_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `quantity` INT NOT NULL,
-  `created_at` DATETIME NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(`id`),
   FOREIGN KEY(`ticket_id`) REFERENCES tickets(`id`),
   FOREIGN KEY(`user_id`) REFERENCES users(`id`)
