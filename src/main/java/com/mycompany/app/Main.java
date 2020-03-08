@@ -7,8 +7,7 @@ import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
-import akka.http.javadsl.server.AllDirectives;
-import akka.http.javadsl.server.Route;
+import akka.http.javadsl.server.*;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.mycompany.AppConfig;
@@ -17,7 +16,9 @@ import com.mycompany.dao.EventDaoImpl;
 import com.mycompany.entities.Event;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.tx.TransactionManager;
-
+import static akka.http.javadsl.server.PathMatchers.segment;
+import static akka.http.javadsl.server.PathMatchers.integerSegment;
+import static akka.http.javadsl.server.Directives.pathEndOrSingleSlash;
 import java.util.concurrent.CompletionStage;
 
 public class Main extends AllDirectives {
@@ -56,8 +57,16 @@ public class Main extends AllDirectives {
 
   private Route createRoute() {
     return concat(
-      path("hello", () ->
+      path(segment("events").slash(integerSegment()), id ->
         get(() ->
-          complete("<h1>Say hello to akka-http</h1>"))));
+          complete("get events = " + id)
+        )
+      ),
+      pathPrefix("orders", () ->
+        pathEndOrSingleSlash(() ->
+          post(() -> complete("orders post received"))
+        )
+      )
+    );
   }
 }
