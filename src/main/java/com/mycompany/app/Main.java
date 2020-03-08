@@ -14,6 +14,7 @@ import com.mycompany.AppConfig;
 import com.mycompany.dao.EventDao;
 import com.mycompany.dao.EventDaoImpl;
 import com.mycompany.entities.Event;
+import com.mycompany.route.*;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.tx.TransactionManager;
 import static akka.http.javadsl.server.PathMatchers.segment;
@@ -21,7 +22,7 @@ import static akka.http.javadsl.server.PathMatchers.integerSegment;
 import static akka.http.javadsl.server.Directives.pathEndOrSingleSlash;
 import java.util.concurrent.CompletionStage;
 
-public class Main extends AllDirectives {
+public class Main {
 
   public static void main(String[] args) throws Exception {
     // boot up server using the route as defined below
@@ -41,9 +42,9 @@ public class Main extends AllDirectives {
     final ActorMaterializer materializer = ActorMaterializer.create(system);
 
     //In order to access all directives we need an instance where the routes are define.
-    Main app = new Main();
+    AllRoute route = new AllRoute();
 
-    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = app.createRoute().flow(system, materializer);
+    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = route.createRoute().flow(system, materializer);
     final CompletionStage<ServerBinding> binding = http.bindAndHandle(routeFlow,
       ConnectHttp.toHost("localhost", 8080), materializer);
 
@@ -53,20 +54,5 @@ public class Main extends AllDirectives {
     binding
       .thenCompose(ServerBinding::unbind) // trigger unbinding from the port
       .thenAccept(unbound -> system.terminate()); // and shutdown when done
-  }
-
-  private Route createRoute() {
-    return concat(
-      path(segment("events").slash(integerSegment()), id ->
-        get(() ->
-          complete("get events = " + id)
-        )
-      ),
-      pathPrefix("orders", () ->
-        pathEndOrSingleSlash(() ->
-          post(() -> complete("orders post received"))
-        )
-      )
-    );
   }
 }
