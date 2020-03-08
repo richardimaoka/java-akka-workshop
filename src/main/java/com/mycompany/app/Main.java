@@ -44,7 +44,7 @@ public class Main {
     //In order to access all directives we need an instance where the routes are define.
     AllRoute route = new AllRoute();
 
-    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = route.createRoute().flow(system, materializer);
+    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = route.route().flow(system, materializer);
     final CompletionStage<ServerBinding> binding = http.bindAndHandle(routeFlow,
       ConnectHttp.toHost("localhost", 8080), materializer);
 
