@@ -1,0 +1,1 @@
+DROP DATABASE IF EXISTS java_akka_workshop;

@@ -1,10 +1,4 @@
-CREATE DATABASE IF NOT EXISTS java_akka_workshop;
-
-SHOW databases;
-
-USE java_akka_workshop;
-DROP TABLE tickets;
-DROP TABLE events;
+-- USE java_akka_workshop;
 
 CREATE TABLE events (
   `id` VARCHAR(10) NOT NULL,
@@ -42,5 +36,3 @@ CREATE TABLE orders (
   FOREIGN KEY(`ticket_id`) REFERENCES tickets(`id`),
   FOREIGN KEY(`user_id`) REFERENCES users(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-SHOW tables;
