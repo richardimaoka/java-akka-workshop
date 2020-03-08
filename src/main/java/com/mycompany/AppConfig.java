@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import io.github.cdimascio.dotenv.DotEnvException;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.seasar.doma.SingletonConfig;
 import org.seasar.doma.jdbc.Config;
@@ -22,13 +23,23 @@ public class AppConfig implements Config {
   private final TransactionManager transactionManager;
 
   private AppConfig() {
-    Dotenv dotenv = Dotenv.load();
-    String url = dotenv.get("DATABASE.URL");
-    String user =  dotenv.get("DATABASE.USER");
-    String password = dotenv.get("DATABASE.PASSWORD");
+    String url, user, password;
+
+    try {
+       Dotenv dotenv = Dotenv.load();
+       url = dotenv.get("DATABASE.URL");
+       user =  dotenv.get("DATABASE.USER");
+       password = dotenv.get("DATABASE.PASSWORD");
+       System.out.println("AppConfig: Tried to load JDBC properties from .env file. (with environment variables as fallback)");
+    } catch (Exception e) {
+       url = System.getProperty("DATABASE.URL");
+       user = System.getProperty("DATABASE.USER");
+       password = System.getProperty("DATABASE.PASSWORD");
+       System.out.println("AppConfig: Tried to load JDBC properties from environment variables.");
+    }
 
     if (url == null || user == null || password == null)
-      throw new RuntimeException("Missing Environment variables: one or more of 'DATABASE.URL', 'DATABASE.USER', 'DATABASE.PASSWORD' is not found.");
+      throw new RuntimeException("Missing environment variables: one or more of 'DATABASE.URL', 'DATABASE.USER', 'DATABASE.PASSWORD' is not found.");
     else {
       dialect = new MysqlDialect();
       dataSource = new LocalTransactionDataSource(url, user, password);
