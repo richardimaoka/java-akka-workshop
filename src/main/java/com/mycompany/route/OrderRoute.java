@@ -9,11 +9,17 @@ import org.seasar.doma.jdbc.tx.*;
 
 public class OrderRoute extends AllDirectives {
   private TransactionManager transactionManager;
-  private OrderDao dao;
+  private OrderDao orderDao;
+  private TicketDao ticketDao;
 
-  public OrderRoute(TransactionManager transactionManager) {
+  public OrderRoute(
+    TransactionManager transactionManager,
+    OrderDao orderDao,
+    TicketDao ticketDao
+  ) {
     this.transactionManager = transactionManager;
-    this.dao = new OrderDaoImpl();
+    this.orderDao = orderDao;
+    this.ticketDao = ticketDao;
   }
 
   private Order convert(OrderPutRequest req) {
@@ -26,7 +32,7 @@ public class OrderRoute extends AllDirectives {
 
   private void insert(Order order) {
     transactionManager.required(() -> {
-      dao.insert(order);
+      orderDao.insert(order);
     });
   }
 
