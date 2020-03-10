@@ -10,8 +10,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.mycompany.AppConfig;
-import com.mycompany.dao.EventDao;
-import com.mycompany.dao.EventDaoImpl;
+import com.mycompany.dao.*;
 import com.mycompany.route.*;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.tx.TransactionManager;
@@ -26,7 +25,9 @@ public class Main {
     ActorSystem system = ActorSystem.create("routes");
 
     Config config = AppConfig.singleton();
-    EventDao dao = new EventDaoImpl();
+    EventDao eventDao = new EventDaoImpl();
+    OrderDao orderDao = new OrderDaoImpl();
+    TicketDao ticketDao = new TicketDaoImpl();
 
     final Http http = Http.get(system);
     final ActorMaterializer materializer = ActorMaterializer.create(system);
