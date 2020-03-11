@@ -18,6 +18,10 @@ public class Order {
   @Column(name = "quantity")
   Integer quantity;
 
+  public int getTicketId() {
+    return this.ticketId;
+  }
+
   public void setTicketId(int ticketId) {
     this.ticketId = ticketId;
   }

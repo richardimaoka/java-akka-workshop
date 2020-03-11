@@ -33,6 +33,10 @@ public class OrderRoute extends AllDirectives {
   private void insert(Order order) {
     transactionManager.required(() -> {
       orderDao.insert(order);
+      Ticket ticket = ticketDao.selectById(order.getTicketId());
+      int quantity = ticket.getQuantity();
+      ticket.setQuantity(quantity - 1);
+      ticketDao.update(ticket);
     });
   }
 
