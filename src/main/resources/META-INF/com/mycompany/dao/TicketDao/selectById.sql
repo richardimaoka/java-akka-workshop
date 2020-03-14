@@ -1,1 +1,1 @@
-select * from tickets where id = /* id */99
+select * from tickets where id = /* id */99 FOR UPDATE
